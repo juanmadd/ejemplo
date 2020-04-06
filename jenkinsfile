@@ -1,0 +1,19 @@
+pipeline{
+  agent any
+  stages{
+    stage('Build'){
+      steps{
+        sh 'makes check'
+      }
+    }
+    stage('Test'){
+      steps{
+        echo "comprobando"
+      }
+    }
+    stage('Deploy'){
+      steps{
+        sh 'make publish'
+      }
+    }
+}

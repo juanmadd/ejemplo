@@ -3,17 +3,22 @@ pipeline{
   stages{
     stage('Build'){
       steps{
-        sh 'makes check'
+        echo 'makes check'
+        build job: 'ejTuberia', quietPeriod: 5
       }
     }
     stage('Test'){
       steps{
-        echo "comprobando"
+        echo 'comprobando'
       }
     }
     stage('Deploy'){
       steps{
-        sh 'make publish'
-      }
+        echo 'make publish'
+        writeFile file: 'fichero', text: 'trabajo construido correctamente'
+        archiveArtifacts 'fichero'
+        emailext body: 'Se ha compilado los proyectos, reviselos', subject: 'jenkins compilacion ha terminado', to: 'diazjuanma778@gmail.com'
+     }
     }
+}
 }
